@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
@@ -16,11 +15,11 @@ function App() {
 
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/semesters" element={<Semesters/>}/>
-                <Route path={"SemesterDetail"} element={<SemesterDetail/>}/>
-                <Route path={"CreateSemester"} element={<CreateSemester/>}/>
-                <Route path={"/login"} element={<Login/>}/>
-                <Route path={"UpdateSemester"} element={<UpdateSemester/>}/>
+                <Route path="/Semesters" element={<Semesters/>}/>
+                <Route path={"/SemesterDetail"} element={<SemesterDetail/>}/>
+                <Route path={"/CreateSemester"} element={<CreateSemester/>}/>
+                <Route path={"/Login"} element={<Login/>}/>
+                <Route path={"/UpdateSemester"} element={<UpdateSemester/>}/>
             </Routes>
         </div>
     );

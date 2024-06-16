@@ -20,7 +20,7 @@ function NavBar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">Home</a>
+                <a className="navbar-brand" href="/">GradeBook</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -41,12 +41,25 @@ function NavBar() {
                                 </Link>
                             </li>
                         )}
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
+
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                GradeBook
+                            </a>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Student
+                                </Link></li>
+
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Lecturer
+                                </Link></li>
+
+                            </ul>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
-                        </li>
+
+
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,10 +67,22 @@ function NavBar() {
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li><Link className="nav-link active" aria-current="page" to="/semesters">
-                                    Semesters
+                                    Class
                                 </Link></li>
-                                <li><a className="dropdown-item" href="#">Another action</a></li>
-                                <li><a className="dropdown-item" href="#">Something else here</a></li>
+
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Lecturer
+                                </Link></li>
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Student
+                                </Link></li>
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Course
+                                </Link></li>
+                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                    Semester
+                                </Link></li>
+
                             </ul>
                         </li>
                     </ul>

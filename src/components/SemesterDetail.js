@@ -1,24 +1,14 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BaseUrl} from "./constants";
 
-function SemesterDetail(props) {
+function SemesterDetail() {
     const location = useLocation();
     const semester_id = location.state.semester_id;
-    // this usestate is a object not array
     const [semester, setSemester] = useState({});
-
-    const [, setToken] = React.useState(null);
-    const [, setHasToken] = React.useState(false);
-    React.useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setToken(token);
-            setHasToken(true);
-        }
-    }, []);
-
+    const navigate = useNavigate();
+    const [token] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
 
@@ -29,38 +19,39 @@ function SemesterDetail(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [semester]);
-
+    }, [semester_id]);
 
     function deleteSemester(event) {
-        let semester_id = event.target.value;
-        let login_token = localStorage.getItem("token");
-        axios.delete(BaseUrl + "/api/semesters/" + semester_id, {
-            headers: {
-                "Authorization": "Token " + login_token
-            }
-        }).then((res) => {
-            alert("Semester deleted successfully");
 
+        if (window.confirm("Are you sure you want to delete this semester?"))
 
-        }).catch(error => {
-            console.log(error);
-        })
+            axios.delete(BaseUrl + "/api/semesters/" + semester_id, {
+                headers: {
+                    "Authorization": "Token " + token
+                }
+            }).then((res) => {
+                alert("Semester deleted successfully");
+                navigate('/Semesters');
+            }).catch(error => {
+                console.log(error);
+            });
     }
 
 
     return (
-        <div>
-
-            <p>Year: {semester.year}</p>
-            <p>Semester: {semester.semester}</p>
-            <Fragment>
-            <Link to={"/UpdateSemester"} state={{semester_id: semester.id}} className={"btn btn-primary"}>Update</Link>
-                <button value={semester.id} className={"btn btn-danger"} onClick={deleteSemester}>Delete</button>
-            </Fragment>
-
-
-        </div>
+        <>
+            {token ? (
+                <div>
+                    <p>Year: {semester.year}</p>
+                    <p>Semester: {semester.semester}</p>
+                    <Link to={"/UpdateSemester"} state={{semester_id: semester_id}}
+                          className={"btn btn-primary"}>Update</Link>
+                    <button className={"btn btn-danger"} onClick={deleteSemester}>Delete</button>
+                </div>
+            ) : (
+                <p>Unauthorized Access</p>
+            )}
+        </>
     );
 }
 

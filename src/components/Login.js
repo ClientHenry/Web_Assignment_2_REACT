@@ -4,21 +4,12 @@ import {BaseUrl} from "./constants";
 import {useNavigate} from "react-router-dom";
 
 
-function Login(props) {
+function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [token, setToken] = useState(null);
-    const [hasToken, setHasToken] = useState(false);
+    const [token] = useState(localStorage.getItem("token"));
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const savedToken = localStorage.getItem('token');
-        if (savedToken) {
-            setToken(savedToken);
-            setHasToken(true);
-        }
-    }, [token]);
 
     function passwordHandler(event) {
         setPassword(event.target.value);
@@ -43,54 +34,38 @@ function Login(props) {
 
         axios.request(config)
             .then((response) => {
-
-                console.log(JSON.stringify(response.data));
-                setToken(response.data);
-                setHasToken(true);
-                // set token to data
                 localStorage.setItem("token", response.data.token);
-                alert(response.data.token);
-                // reload page
-                //  props.history.push('/');
+                window.alert("Login Successful");
                 navigate("/");
                 window.location.reload();
-
-
             })
             .catch((error) => {
-                console.log(error);
+                window.alert("Login Failed. Please check your username and password");
             });
-
     }
 
-
     function logout() {
-        let loginToken = localStorage.getItem("token");
+
         axios.get(BaseUrl + '/auth/logout', {
                 headers: {
-                    'Authorization': 'Token ' + loginToken
+                    'Authorization': 'Token ' + token
                 }
             }
         ).then((response) => {
-            console.log(response);
             localStorage.removeItem("token");
-            setToken(null);
-            setHasToken(false);
+            window.alert("Logout Successful");
             navigate("/");
             window.location.reload();
         }).catch((error) => {
-            console.log(error);
+            window.alert("Logout Failed");
         })
     }
 
-
     return (
         <div>
-            {hasToken ?
+            {token ?
                 <Fragment>
                     <button className={"btn btn-warning"} onClick={logout}>Logout</button>
-
-
                 </Fragment>
                 :
                 <Fragment>
@@ -100,11 +75,8 @@ function Login(props) {
                     <p>
                         <button className={"btn btn-primary"} onClick={login}>Login</button>
                     </p>
-
                 </Fragment>
             }
-
-
         </div>
     );
 }
