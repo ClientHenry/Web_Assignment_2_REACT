@@ -70,16 +70,16 @@ function NavBar() {
                                     Class
                                 </Link></li>
 
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Semesters">
                                     Lecturer
                                 </Link></li>
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Students">
                                     Student
                                 </Link></li>
                                 <li><Link className="nav-link active" aria-current="page" to="/semesters">
                                     Course
                                 </Link></li>
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Semesters">
                                     Semester
                                 </Link></li>
 
