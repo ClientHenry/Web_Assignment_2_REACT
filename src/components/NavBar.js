@@ -66,17 +66,17 @@ function NavBar() {
                                 Admin
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Classes">
                                     Class
                                 </Link></li>
 
-                                <li><Link className="nav-link active" aria-current="page" to="/Semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Lecturers">
                                     Lecturer
                                 </Link></li>
                                 <li><Link className="nav-link active" aria-current="page" to="/Students">
                                     Student
                                 </Link></li>
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/Courses">
                                     Course
                                 </Link></li>
                                 <li><Link className="nav-link active" aria-current="page" to="/Semesters">
