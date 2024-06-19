@@ -59,7 +59,6 @@ function ClassDetail() {
                     </p>
 
 
-
                     <Link to={"/UpdateClass"} state={{class_id: class_id}} className={"btn btn-primary"}>Update</Link>
                     <button className={"btn btn-danger"} onClick={deleteClass}>Delete</button>
                 </div>

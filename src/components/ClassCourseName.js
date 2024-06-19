@@ -16,11 +16,17 @@ function ClassCourseName(props) {
             });
     }, [props.course_id]);
 
-    return (
+    // return (
+// <>
+//             {courseName}
+// </>
+    return(
         <Fragment>
-            {courseName}
-        </Fragment>
-    );
+        {courseName}
+        </Fragment>);
+
+
+    // );
 }
 
 export default ClassCourseName;

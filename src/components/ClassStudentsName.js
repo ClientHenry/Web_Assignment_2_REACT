@@ -20,8 +20,10 @@ function ClassStudentsName(props) {
 
     return (
 
-        <Fragment>{firstName} {lastName},  </Fragment>
+        <Fragment>{firstName} {lastName}, </Fragment>
     );
+
+
 }
 
 export default ClassStudentsName;

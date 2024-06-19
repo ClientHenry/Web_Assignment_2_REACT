@@ -48,11 +48,11 @@ function NavBar() {
                                 GradeBook
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/GradeBookStudent">
                                     Student
                                 </Link></li>
 
-                                <li><Link className="nav-link active" aria-current="page" to="/semesters">
+                                <li><Link className="nav-link active" aria-current="page" to="/GradeBookLecturer">
                                     Lecturer
                                 </Link></li>
 
@@ -69,7 +69,6 @@ function NavBar() {
                                 <li><Link className="nav-link active" aria-current="page" to="/Classes">
                                     Class
                                 </Link></li>
-
                                 <li><Link className="nav-link active" aria-current="page" to="/Lecturers">
                                     Lecturer
                                 </Link></li>

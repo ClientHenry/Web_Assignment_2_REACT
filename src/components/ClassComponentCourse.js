@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import { BaseUrl } from "./constants";
+import {BaseUrl} from "./constants";
 
-function ClassComponentCourse({ onChange }) {
+function ClassComponentCourse() {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ function ClassComponentCourse({ onChange }) {
     return (
         <>
             {courses.map((course) => (
-                <option key={course.id} value={course.id} onClick={() => onChange(course.id)}>
+                <option key={course.id} value={course.id}>
                     {course.name}
                 </option>
             ))}

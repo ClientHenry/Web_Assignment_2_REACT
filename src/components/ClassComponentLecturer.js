@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {BaseUrl} from "./constants";
 
-function ClassComponentLecturer({ onChange }) {
+function ClassComponentLecturer() {
 
-     const [lecturers, setLecturers] = useState([]);
+    const [lecturers, setLecturers] = useState([]);
 
     useEffect(() => {
         axios.get(`${BaseUrl}/api/lecturers`)
@@ -19,8 +19,8 @@ function ClassComponentLecturer({ onChange }) {
     return (
         <>
             {lecturers.map((lecturer) => (
-                <option key={lecturer.id} value={lecturer.id} onClick={() => onChange(lecturer.id)}>
-                    {lecturer.firstname}
+                <option key={lecturer.id} value={lecturer.id}>
+                    {lecturer.firstname} {lecturer.lastname}
                 </option>
             ))}
         </>

@@ -1,19 +1,52 @@
-// CreateClass.jsx
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BaseUrl} from "./constants";
-import {useNavigate} from "react-router-dom";
 import ClassComponentSemester from "./ClassComponentSemester";
 import ClassComponentCourse from "./ClassComponentCourse";
-import ClassComponentLecturer from "./ClassComponentLecturer";
 
-function CreateClass() {
+
+function UpdateClass(props) {
+
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const location = useLocation();
+    const class_id = location.state.class_id;
     const [number, setNumber] = useState('');
     const [semester, setSemester] = useState('');
     const [course, setCourse] = useState('');
-    const [lecturer, setLecturer] = useState('');
+
+
+    useEffect(() => {
+        axios.get(BaseUrl + "/api/classes/" + class_id)
+            .then((response) => {
+                setNumber(response.data.number);
+                setCourse(response.data.course);
+                setSemester(response.data.semester);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [class_id]);
+
+    function updateClass() {
+
+        const data = {
+            number,
+            semester,
+            course,
+        };
+        axios.patch(BaseUrl + "/api/classes/" + class_id + "/", data, {
+            headers: {
+                "Authorization": "Token " + token
+            }
+        }).then((res) => {
+            alert("Class updated successfully");
+            navigate('/Classes');
+        }).catch(error => {
+            console.log(error);
+        })
+    }
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -27,33 +60,9 @@ function CreateClass() {
             case 'course':
                 setCourse(value);
                 break;
-            case 'lecturer':
-                setLecturer(value);
-                break;
             default:
                 break;
         }
-    };
-
-    const createClass = () => {
-        const data = {
-            number,
-            semester,
-            course,
-            lecturer
-        };
-        axios.post(`${BaseUrl}/api/classes/`, data, {
-            headers: {
-                "Authorization": `Token ${token}`
-            }
-        })
-            .then((res) => {
-                alert("Class created successfully");
-                navigate('/Classes');
-            })
-            .catch(error => {
-                console.log(error);
-            });
     };
 
     return (
@@ -66,29 +75,18 @@ function CreateClass() {
                     <p>
                         Semester:
                         <select name="semester" value={semester} onChange={handleChange}>
-                            <option value="">Select a semester</option>
                             <ClassComponentSemester/>
-
                         </select>
                     </p>
                     <p>
                         Course:
                         <select name="course" value={course} onChange={handleChange}>
-                            <option value="">Select a course</option>
                             <ClassComponentCourse/>
                         </select>
                     </p>
-                    <p>
-                        Lecturer:
-                        <select name="lecturer" value={lecturer} onChange={handleChange}>
-                            <option value="">Select a lecturer</option>
-                            <ClassComponentLecturer/>
-                        </select>
-                    </p>
-                    <p>
-                        <button onClick={createClass}>Submit</button>
-                    </p>
+                    <button onClick={updateClass}>Submit</button>
                 </div>
+
             ) : (
                 <p>Unauthorized Access</p>
             )}
@@ -96,4 +94,4 @@ function CreateClass() {
     );
 }
 
-export default CreateClass;
+export default UpdateClass;

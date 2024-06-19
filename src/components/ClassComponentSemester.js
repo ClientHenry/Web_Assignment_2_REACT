@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {BaseUrl} from "./constants";
 
-function ClassComponentSemester({ onChange }) {
+function ClassComponentSemester() {
 
-     const [semesters, setSemesters] = useState([]);
+    const [semesters, setSemesters] = useState([]);
 
     useEffect(() => {
         axios.get(`${BaseUrl}/api/semesters`)
@@ -19,8 +19,8 @@ function ClassComponentSemester({ onChange }) {
     return (
         <>
             {semesters.map((semester) => (
-                <option key={semester.id} value={semester.id} onClick={() => onChange(semester.id)}>
-                    {semester.year}
+                <option key={semester.id} value={semester.id}>
+                    {semester.year} {semester.semester}
                 </option>
             ))}
         </>
