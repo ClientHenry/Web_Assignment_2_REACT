@@ -15,9 +15,19 @@ function UpdateLecturer() {
     const [DOB, setDOB] = useState("");
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id)
+
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setLecturer(response.data);
                 setStaffID(response.data.staffID);
@@ -27,9 +37,9 @@ function UpdateLecturer() {
                 setDOB(response.data.DOB);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [lecturer_id]);
+    }, [lecturer_id, token]);
 
     function updateLecturer() {
 
@@ -48,7 +58,7 @@ function UpdateLecturer() {
             alert("Lecturer updated successfully");
             navigate('/Lecturers');
         }).catch(error => {
-            console.log(error);
+            alert("Lecturer updated failed");
         })
     }
 
@@ -74,7 +84,9 @@ function UpdateLecturer() {
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>
                         Staff ID: <input type={"number"} id={"staffID"} value={staffID}
@@ -97,8 +109,6 @@ function UpdateLecturer() {
                         <button onClick={updateLecturer}>Submit</button>
                     </p>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

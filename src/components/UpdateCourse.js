@@ -12,18 +12,28 @@ function UpdateCourse() {
     const [name, setName] = useState("");
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/courses/" + course_id)
+
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/courses/" + course_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setCourse(response.data);
                 setCode(response.data.code);
                 setName(response.data.name);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [course_id]);
+    }, [course_id, token]);
 
     function updateCourse() {
 
@@ -39,7 +49,7 @@ function UpdateCourse() {
             alert("Course updated successfully");
             navigate('/Courses');
         }).catch(error => {
-            console.log(error);
+            alert("Course updated failed");
         })
     }
 
@@ -53,7 +63,9 @@ function UpdateCourse() {
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>
                         Code: <input type={"number"} id={"code"} value={code} onChange={codeHandler}/>
@@ -65,8 +77,6 @@ function UpdateCourse() {
                         <button onClick={updateCourse}>Submit</button>
                     </p>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

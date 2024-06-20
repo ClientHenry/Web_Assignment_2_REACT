@@ -9,22 +9,30 @@ function LecturerDetail() {
     const [lecturer, setLecturer] = useState({});
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id)
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setLecturer(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [lecturer_id]);
+    }, [lecturer_id, token]);
 
     function deleteLecturer(event) {
 
         if (window.confirm("Are you sure you want to delete this lecturer?"))
-
             axios.delete(BaseUrl + "/api/lecturers/" + lecturer_id, {
                 headers: {
                     "Authorization": "Token " + token
@@ -33,14 +41,16 @@ function LecturerDetail() {
                 alert("Lecturer deleted successfully");
                 navigate('/Lecturers');
             }).catch(error => {
-                console.log(error);
+                alert("Lecturer deleted failed");
             });
     }
 
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>Staff ID: {lecturer.staffID}</p>
                     <p>First Name: {lecturer.firstname}</p>
@@ -51,8 +61,6 @@ function LecturerDetail() {
                           className={"btn btn-primary"}>Update</Link>
                     <button className={"btn btn-danger"} onClick={deleteLecturer}>Delete</button>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

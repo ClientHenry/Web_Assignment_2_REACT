@@ -1,21 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function NavBar() {
-    const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        const savedToken = localStorage.getItem('token');
-        if (savedToken) {
-            setToken(savedToken);
-        }
-    }, []);
-
-
-    const hasToken = !!token; // 将 hasToken 计算属性化
-
+    const [token] = useState(localStorage.getItem('token'));
+    const hasToken = !!token;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

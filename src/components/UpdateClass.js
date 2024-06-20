@@ -15,19 +15,29 @@ function UpdateClass(props) {
     const [number, setNumber] = useState('');
     const [semester, setSemester] = useState('');
     const [course, setCourse] = useState('');
+    const [error, setError] = useState(null);
 
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/classes/" + class_id)
+
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/classes/" + class_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setNumber(response.data.number);
                 setCourse(response.data.course);
                 setSemester(response.data.semester);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [class_id]);
+    }, [class_id, token]);
 
     function updateClass() {
 
@@ -44,7 +54,7 @@ function UpdateClass(props) {
             alert("Class updated successfully");
             navigate('/Classes');
         }).catch(error => {
-            console.log(error);
+            alert("Class updated failed");
         })
     }
 
@@ -67,7 +77,9 @@ function UpdateClass(props) {
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>
                         Number: <input type="number" name="number" value={number} onChange={handleChange}/>
@@ -86,9 +98,6 @@ function UpdateClass(props) {
                     </p>
                     <button onClick={updateClass}>Submit</button>
                 </div>
-
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

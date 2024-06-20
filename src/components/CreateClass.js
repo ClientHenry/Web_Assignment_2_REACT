@@ -52,47 +52,41 @@ function CreateClass() {
                 navigate('/Classes');
             })
             .catch(error => {
-                console.log(error);
+                alert("Class created failed");
             });
     };
 
     return (
-        <>
-            {token ? (
-                <div>
-                    <p>
-                        Number: <input type="number" name="number" value={number} onChange={handleChange}/>
-                    </p>
-                    <p>
-                        Semester:
-                        <select name="semester" value={semester} onChange={handleChange}>
-                            <option value="">Select a semester</option>
-                            <ClassComponentSemester/>
+        <div>
+            <p>
+                Number: <input type="number" name="number" value={number} onChange={handleChange}/>
+            </p>
+            <p>
+                Semester:
+                <select name="semester" value={semester} onChange={handleChange}>
+                    <option value="">Select a semester</option>
+                    <ClassComponentSemester/>
 
-                        </select>
-                    </p>
-                    <p>
-                        Course:
-                        <select name="course" value={course} onChange={handleChange}>
-                            <option value="">Select a course</option>
-                            <ClassComponentCourse/>
-                        </select>
-                    </p>
-                    <p>
-                        Lecturer:
-                        <select name="lecturer" value={lecturer} onChange={handleChange}>
-                            <option value="">Select a lecturer</option>
-                            <ClassComponentLecturer/>
-                        </select>
-                    </p>
-                    <p>
-                        <button onClick={createClass}>Submit</button>
-                    </p>
-                </div>
-            ) : (
-                <p>Unauthorized Access</p>
-            )}
-        </>
+                </select>
+            </p>
+            <p>
+                Course:
+                <select name="course" value={course} onChange={handleChange}>
+                    <option value="">Select a course</option>
+                    <ClassComponentCourse/>
+                </select>
+            </p>
+            <p>
+                Lecturer:
+                <select name="lecturer" value={lecturer} onChange={handleChange}>
+                    <option value="">Select a lecturer</option>
+                    <ClassComponentLecturer/>
+                </select>
+            </p>
+            <p>
+                <button onClick={createClass}>Submit</button>
+            </p>
+        </div>
     );
 }
 

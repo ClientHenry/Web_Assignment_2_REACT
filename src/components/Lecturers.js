@@ -7,21 +7,32 @@ function Lecturers() {
 
     const [lecturers, setLecturers] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/lecturers")
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/lecturers", {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setLecturers(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             })
-    }, []);
+    }, [token]);
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <Link to={"/CreateLecturer"} className={"btn btn-primary"}>Create a Lecturer</Link>
                     {lecturers.map(lecturer =>
@@ -32,8 +43,6 @@ function Lecturers() {
                         </p>
                     )}
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

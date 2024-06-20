@@ -7,30 +7,43 @@ function Semesters() {
 
     const [semesters, setSemesters] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/semesters")
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+
+        axios.get(BaseUrl + "/api/semesters", {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setSemesters(response.data);
             })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, []);
+            .catch(() => {
+                setError('Unauthorized Access');
+            });
+    }, [token]);
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <Link to={"/CreateSemester"} className={"btn btn-primary"}>Create a Semester</Link>
                     {semesters.map(semester =>
-                        <p><Link to={"/SemesterDetail"} state={{semester_id: semester.id}}
-                                 key={semester.id}>{semester.year} - {semester.semester}</Link></p>
+                        <p key={semester.id}>
+                            <Link to={"/SemesterDetail"} state={{semester_id: semester.id}}>
+                                {semester.year} - {semester.semester}
+                            </Link>
+                        </p>
                     )}
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

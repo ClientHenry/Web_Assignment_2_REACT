@@ -7,6 +7,7 @@ function CreateCourse() {
 
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+
     function createCourse() {
 
         let data = {
@@ -21,28 +22,22 @@ function CreateCourse() {
             alert("Course created successfully");
             navigate('/Courses');
         }).catch(error => {
-            console.log(error);
+            alert("Course created failed");
         })
     }
 
     return (
-        <>
-            {token ? (
-                <div>
-                    <p>
-                        Code: <input type={"number"} id={"code"}/>
-                    </p>
-                    <p>
-                        Name: <input type={"text"} id={"name"}/>
-                    </p>
-                    <p>
-                        <button onClick={createCourse}>Submit</button>
-                    </p>
-                </div>
-            ) : (
-                <p>Unauthorized Access</p>
-            )}
-        </>
+        <div>
+            <p>
+                Code: <input type={"number"} id={"code"}/>
+            </p>
+            <p>
+                Name: <input type={"text"} id={"name"}/>
+            </p>
+            <p>
+                <button onClick={createCourse}>Submit</button>
+            </p>
+        </div>
     );
 }
 

@@ -1,42 +1,44 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {BaseUrl} from "./constants";
-import {Link} from "react-router-dom";
-import ClassCourseName from "./ClassCourseName";
 
 function GradeBookStudent(props) {
 
     const [enrollments, setEnrollments] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/grade/students/",{
-             headers: {
-                    'Authorization': 'Token ' + token
-                }
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/grade/students/", {
+            headers: {
+                'Authorization': 'Token ' + token
+            }
         })
             .then((response) => {
                 setEnrollments(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             })
     }, [token]);
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     {enrollments.map(enrollment =>
 
-                       <p key={enrollment.id}>{enrollment.classID} - {enrollment.grade}</p>
-
+                        <p key={enrollment.id}>{enrollment.classNumber} - {enrollment.courseName} - {enrollment.grade}</p>
                     )}
 
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

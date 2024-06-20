@@ -22,20 +22,19 @@ import UpdateCourse from "./components/UpdateCourse";
 import Classes from "./components/Classes";
 import ClassDetail from "./components/ClassDetail";
 import CreateClass from "./components/CreateClass";
-import ClassComponentSemester from "./components/ClassComponentSemester";
-import ClassComponentCourse from "./components/ClassComponentCourse";
 import UpdateClass from "./components/UpdateClass";
 import GradeBookLecturer from "./components/GradeBookLecturer";
 import GradeBookStudent from "./components/GradeBookStudent";
 import GradeBookLecturerClassDetail from "./components/GradeBookLecturerClassDetail";
 import GradeBookLecturerUpdateGrade from "./components/GradeBookLecturerUpdateGrade";
+import UpdateClassLecturer from "./components/UpdateClassLecturer";
+import UpdateClassStudent from "./components/UpdateClassStudent";
 
 
 function App() {
     return (
         <div className="App">
             <NavBar/>
-
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path={"/Login"} element={<Login/>}/>
@@ -59,12 +58,12 @@ function App() {
                 <Route path={"/ClassDetail"} element={<ClassDetail/>}/>
                 <Route path={"/CreateClass"} element={<CreateClass/>}/>
                 <Route path={"/UpdateClass"} element={<UpdateClass/>}/>
+                <Route path={"/UpdateClassLecturer"} element={<UpdateClassLecturer/>}/>
+                <Route path={"/UpdateClassStudent"} element={<UpdateClassStudent/>}/>
                 <Route path={"/GradeBookLecturer"} element={<GradeBookLecturer/>}/>
                 <Route path={"/GradeBookLecturerClassDetail"} element={<GradeBookLecturerClassDetail/>}/>
                 <Route path={"/GradeBookLecturerUpdateGrade"} element={<GradeBookLecturerUpdateGrade/>}/>
                 <Route path={'/GradeBookStudent'} element={<GradeBookStudent/>}/>
-
-
             </Routes>
         </div>
     );

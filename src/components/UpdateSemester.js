@@ -12,18 +12,28 @@ function UpdateSemester() {
     const [sem, setSem] = useState("");
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/semesters/" + semester_id)
+
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/semesters/" + semester_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setSemester(response.data);
                 setYear(response.data.year);
                 setSem(response.data.semester);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [semester_id]);
+    }, [token, semester_id]);
 
     function updateSemester() {
 
@@ -39,7 +49,7 @@ function UpdateSemester() {
             alert("Semester updated successfully");
             navigate('/Semesters');
         }).catch(error => {
-            console.log(error);
+            alert("Semester updated failed");
         })
     }
 
@@ -51,9 +61,11 @@ function UpdateSemester() {
         setSem(e.target.value);
     }
 
-   return (
+    return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>
                         Year: <input type={"number"} id={"year"} value={year} onChange={yearHandler}/>
@@ -68,8 +80,6 @@ function UpdateSemester() {
                         <button onClick={updateSemester}>Submit</button>
                     </p>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

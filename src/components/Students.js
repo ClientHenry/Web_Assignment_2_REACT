@@ -7,21 +7,32 @@ function Students() {
 
     const [students, setStudents] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/students")
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/students", {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setStudents(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             })
-    }, []);
+    }, [token]);
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <Link to={"/CreateStudent"} className={"btn btn-primary"}>Create a Student</Link>
                     {students.map(student =>
@@ -32,8 +43,6 @@ function Students() {
                         </p>
                     )}
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

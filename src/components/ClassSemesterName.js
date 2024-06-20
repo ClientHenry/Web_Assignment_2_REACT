@@ -6,9 +6,14 @@ function ClassSemesterName(props) {
 
     const [semesterYear, setSemesterYear] = useState(" ");
     const [semesterSemester, setSemesterSemester] = useState(" ");
+    const [token] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/semesters/" + props.semester_id)
+        axios.get(BaseUrl + "/api/semesters/" + props.semester_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setSemesterYear(response.data.year);
                 setSemesterSemester(response.data.semester);
@@ -16,7 +21,7 @@ function ClassSemesterName(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [props.semester_id]);
+    }, [props.semester_id, token]);
 
     return (
         <Fragment>

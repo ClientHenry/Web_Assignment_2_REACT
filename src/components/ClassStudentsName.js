@@ -6,9 +6,14 @@ function ClassStudentsName(props) {
 
     const [firstName, setFirstName] = useState(" ");
     const [lastName, setLastName] = useState(" ");
+    const [token] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/students/" + props.student_id)
+        axios.get(BaseUrl + "/api/students/" + props.student_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setFirstName(response.data.firstname);
                 setLastName(response.data.lastname);
@@ -16,14 +21,14 @@ function ClassStudentsName(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [props.student_id]);
+    }, [props.student_id, token]);
 
     return (
 
-        <Fragment>{firstName} {lastName}, </Fragment>
+        <Fragment>
+            {firstName} {lastName},
+        </Fragment>
     );
-
-
 }
 
 export default ClassStudentsName;

@@ -9,22 +9,30 @@ function StudentDetail() {
     const [student, setStudent] = useState({});
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/students/" + student_id)
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/students/" + student_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setStudent(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [student_id]);
+    }, [student_id, token]);
 
     function deleteStudent(event) {
 
         if (window.confirm("Are you sure you want to delete this student?"))
-
             axios.delete(BaseUrl + "/api/students/" + student_id, {
                 headers: {
                     "Authorization": "Token " + token
@@ -33,14 +41,16 @@ function StudentDetail() {
                 alert("Student deleted successfully");
                 navigate('/Students');
             }).catch(error => {
-                console.log(error);
+                alert("Student deleted failed");
             });
     }
 
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>Student ID: {student.studentID}</p>
                     <p>First Name: {student.firstname}</p>
@@ -51,8 +61,6 @@ function StudentDetail() {
                           className={"btn btn-primary"}>Update</Link>
                     <button className={"btn btn-danger"} onClick={deleteStudent}>Delete</button>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

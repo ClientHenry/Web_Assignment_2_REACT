@@ -6,9 +6,14 @@ function ClassLecturerName(props) {
 
     const [firstName, setFirstName] = useState(" ");
     const [lastName, setLastName] = useState(" ");
+    const [token] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/lecturers/" + props.lecturer_id)
+        axios.get(BaseUrl + "/api/lecturers/" + props.lecturer_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setFirstName(response.data.firstname);
                 setLastName(response.data.lastname);
@@ -16,7 +21,7 @@ function ClassLecturerName(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, [props.lecturer_id]);
+    }, [props.lecturer_id, token]);
 
     return (
         <Fragment>{firstName} {lastName}</Fragment>

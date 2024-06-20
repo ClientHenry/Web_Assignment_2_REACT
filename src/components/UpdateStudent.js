@@ -7,7 +7,7 @@ function UpdateStudent() {
 
     const location = useLocation();
     const student_id = location.state.student_id;
-    const [, setStudent] = useState({});
+    // const [, setStudent] = useState({});
     const [studentID, setStudentID] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -15,11 +15,21 @@ function UpdateStudent() {
     const [DOB, setDOB] = useState("");
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(BaseUrl + "/api/students/" + student_id)
+
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/students/" + student_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
-                setStudent(response.data);
+                // setStudent(response.data);
                 setStudentID(response.data.studentID);
                 setFirstname(response.data.firstname);
                 setLastname(response.data.lastname);
@@ -27,9 +37,9 @@ function UpdateStudent() {
                 setDOB(response.data.DOB);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [student_id]);
+    }, [student_id, token]);
 
     function updateStudent() {
 
@@ -48,7 +58,7 @@ function UpdateStudent() {
             alert("Student updated successfully");
             navigate('/Students');
         }).catch(error => {
-            console.log(error);
+            alert("Student updated failed");
         })
     }
 
@@ -74,7 +84,9 @@ function UpdateStudent() {
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>
                         Student ID: <input type={"number"} id={"studentID"} value={studentID}
@@ -97,8 +109,6 @@ function UpdateStudent() {
                         <button onClick={updateStudent}>Submit</button>
                     </p>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

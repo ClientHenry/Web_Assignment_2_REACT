@@ -2,14 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BaseUrl} from "./constants";
+import ClassComponentLecturer from "./ClassComponentLecturer";
 
-function GradeBookLecturerUpdateGrade(props) {
+function UpdateClassLecturer(props) {
+
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
     const location = useLocation();
-    const enrollment_id = location.state.enrollment_id;
-    const [enrollment, setEnrollment] = useState({});
-    const [grade, setGrade] = useState('');
+    const class_id = location.state.class_id;
+    const [lecturer, setLecturer] = useState("");
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -18,40 +19,38 @@ function GradeBookLecturerUpdateGrade(props) {
             setError('Unauthorized Access');
             return;
         }
-        axios.get(BaseUrl + '/api/enrollments/' + enrollment_id, {
+        axios.get(BaseUrl + "/api/classes/" + class_id, {
             headers: {
-                'Authorization': 'Token ' + token
+                'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-                setEnrollment(response.data);
-                setGrade(response.data.grade);
-
+                setLecturer(response.data.lecturer);
             })
             .catch((error) => {
                 setError('Unauthorized Access');
             });
-    }, [enrollment_id, token]);
+    }, [class_id, token]);
 
-    function updateGrade() {
+    function updateLecturer() {
 
         const data = {
-            grade
+            lecturer
         };
-        axios.patch(BaseUrl + '/api/enrollments/' + enrollment_id + "/", data, {
+        axios.patch(BaseUrl + "/api/classes/" + class_id + "/", data, {
             headers: {
                 "Authorization": "Token " + token
             }
         }).then((res) => {
-            alert("Grade updated successfully");
-            navigate(-1);
+            alert("Class updated successfully");
+            navigate('/Classes');
         }).catch(error => {
-            alert("Grade updated failed");
+            alert("Class updated failed");
         })
     }
 
-    function gradeHandler(e) {
-        setGrade(e.target.value);
+    function lecturerHandler(e) {
+        setLecturer(e.target.value);
     }
 
     return (
@@ -61,17 +60,19 @@ function GradeBookLecturerUpdateGrade(props) {
             ) : (
                 <div>
                     <p>
-                        {enrollment.studentFirstName} {enrollment.studentLastName}
+                        Lecturer:
+                        <select name="lecturer" value={lecturer} onChange={lecturerHandler}>
+                            <option value="">Null</option>
+                            <ClassComponentLecturer/>
+                        </select>
                     </p>
                     <p>
-                        Grade: <input type={"number"} id={"grade"} value={grade} onChange={gradeHandler}/>
+                        <button onClick={updateLecturer}>Submit</button>
                     </p>
-
-                    <button onClick={updateGrade}>Submit</button>
                 </div>
             )}
         </>
     );
 }
 
-export default GradeBookLecturerUpdateGrade;
+export default UpdateClassLecturer;

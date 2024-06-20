@@ -25,37 +25,31 @@ function CreateLecturer() {
             alert("Lecturer created successfully");
             navigate('/Lecturers');
         }).catch(error => {
-            console.log(error);
+            alert("Lecturer created failed");
         })
     }
 
     return (
-        <>
-            {token ? (
-                <div>
-                    <p>
-                        Staff ID: <input type={"number"} id={"staffID"}/>
-                    </p>
-                    <p>
-                        First Name: <input type={"text"} id={"firstname"}/>
-                    </p>
-                    <p>
-                        Last Name: <input type={"text"} id={"lastname"}/>
-                    </p>
-                    <p>
-                        Email: <input type={"email"} id={"email"}/>
-                    </p>
-                    <p>
-                        DOB: <input type={"date"} id={"DOB"}/>
-                    </p>
-                    <p>
-                        <button onClick={createLecturer}>Submit</button>
-                    </p>
-                </div>
-            ) : (
-                <p>Unauthorized Access</p>
-            )}
-        </>
+        <div>
+            <p>
+                Staff ID: <input type={"number"} id={"staffID"}/>
+            </p>
+            <p>
+                First Name: <input type={"text"} id={"firstname"}/>
+            </p>
+            <p>
+                Last Name: <input type={"text"} id={"lastname"}/>
+            </p>
+            <p>
+                Email: <input type={"email"} id={"email"}/>
+            </p>
+            <p>
+                DOB: <input type={"date"} id={"DOB"}/>
+            </p>
+            <p>
+                <button onClick={createLecturer}>Submit</button>
+            </p>
+        </div>
     );
 }
 

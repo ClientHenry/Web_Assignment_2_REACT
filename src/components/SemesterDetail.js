@@ -4,22 +4,33 @@ import axios from "axios";
 import {BaseUrl} from "./constants";
 
 function SemesterDetail() {
+
     const location = useLocation();
     const semester_id = location.state.semester_id;
     const [semester, setSemester] = useState({});
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/semesters/" + semester_id)
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+
+        axios.get(BaseUrl + "/api/semesters/" + semester_id, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setSemester(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             });
-    }, [semester_id]);
+    }, [token, semester_id]);
 
     function deleteSemester(event) {
 
@@ -33,14 +44,15 @@ function SemesterDetail() {
                 alert("Semester deleted successfully");
                 navigate('/Semesters');
             }).catch(error => {
-                console.log(error);
+                alert("Semester deleted failed");
             });
     }
 
-
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <p>Year: {semester.year}</p>
                     <p>Semester: {semester.semester}</p>
@@ -48,8 +60,6 @@ function SemesterDetail() {
                           className={"btn btn-primary"}>Update</Link>
                     <button className={"btn btn-danger"} onClick={deleteSemester}>Delete</button>
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

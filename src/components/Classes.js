@@ -8,21 +8,32 @@ function Classes() {
 
     const [classes, setClasses] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        axios.get(BaseUrl + "/api/classes")
+        if (!token) {
+            setError('Unauthorized Access');
+            return;
+        }
+        axios.get(BaseUrl + "/api/classes", {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
             .then((response) => {
                 setClasses(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                setError('Unauthorized Access');
             })
-    }, []);
+    }, [token]);
 
     return (
         <>
-            {token ? (
+            {error ? (
+                <p>{error}</p>
+            ) : (
                 <div>
                     <Link to={"/CreateClass"} className={"btn btn-primary"}>Create a Class</Link>
                     {classes.map(cla =>
@@ -30,8 +41,6 @@ function Classes() {
                                  key={cla.id}>{cla.number} - <ClassCourseName course_id={cla.course}/></Link></p>
                     )}
                 </div>
-            ) : (
-                <p>Unauthorized Access</p>
             )}
         </>
     );

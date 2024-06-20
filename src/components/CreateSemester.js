@@ -7,6 +7,7 @@ function CreateSemester() {
 
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+
     function createSemester() {
 
         let data = {
@@ -21,31 +22,25 @@ function CreateSemester() {
             alert("Semester created successfully");
             navigate('/Semesters');
         }).catch(error => {
-            console.log(error);
+            alert("Semester created failed");
         })
     }
 
     return (
-        <>
-            {token ? (
-                <div>
-                    <p>
-                        Year: <input type={"number"} id={"year"}/>
-                    </p>
-                    <p>
-                        Semester: <select id={"semester"}>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                    </p>
-                    <p>
-                        <button onClick={createSemester}>Submit</button>
-                    </p>
-                </div>
-            ) : (
-                <p>Unauthorized Access</p>
-            )}
-        </>
+        <div>
+            <p>
+                Year: <input type={"number"} id={"year"}/>
+            </p>
+            <p>
+                Semester: <select id={"semester"}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+            </p>
+            <p>
+                <button onClick={createSemester}>Submit</button>
+            </p>
+        </div>
     );
 }
 

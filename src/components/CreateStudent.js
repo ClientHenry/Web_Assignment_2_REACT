@@ -7,6 +7,7 @@ function CreateStudent() {
 
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
+
     function createStudent() {
 
         let data = {
@@ -24,37 +25,31 @@ function CreateStudent() {
             alert("Student created successfully");
             navigate('/Students');
         }).catch(error => {
-            console.log(error);
+            alert("Student created failed");
         })
     }
 
     return (
-        <>
-            {token ? (
-                <div>
-                    <p>
-                        Student ID: <input type={"number"} id={"studentID"}/>
-                    </p>
-                    <p>
-                        First Name: <input type={"text"} id={"firstname"}/>
-                    </p>
-                    <p>
-                        Last Name: <input type={"text"} id={"lastname"}/>
-                    </p>
-                    <p>
-                        Email: <input type={"email"} id={"email"}/>
-                    </p>
-                    <p>
-                        DOB: <input type={"date"} id={"DOB"}/>
-                    </p>
-                    <p>
-                        <button onClick={createStudent}>Submit</button>
-                    </p>
-                </div>
-            ) : (
-                <p>Unauthorized Access</p>
-            )}
-        </>
+        <div>
+            <p>
+                Student ID: <input type={"number"} id={"studentID"}/>
+            </p>
+            <p>
+                First Name: <input type={"text"} id={"firstname"}/>
+            </p>
+            <p>
+                Last Name: <input type={"text"} id={"lastname"}/>
+            </p>
+            <p>
+                Email: <input type={"email"} id={"email"}/>
+            </p>
+            <p>
+                DOB: <input type={"date"} id={"DOB"}/>
+            </p>
+            <p>
+                <button onClick={createStudent}>Submit</button>
+            </p>
+        </div>
     );
 }
 
