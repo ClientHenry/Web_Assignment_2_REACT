@@ -14,6 +14,7 @@ function CreateClass() {
     const [semester, setSemester] = useState('');
     const [course, setCourse] = useState('');
     const [lecturer, setLecturer] = useState('');
+    const [students] = useState([]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -41,7 +42,7 @@ function CreateClass() {
             semester,
             course,
             lecturer,
-            students: [],
+            students
         };
         axios.post(`${BaseUrl}/api/classes/`, data, {
             headers: {
