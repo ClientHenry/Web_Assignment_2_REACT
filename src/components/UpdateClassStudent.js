@@ -33,14 +33,12 @@ function UpdateClassStudent(props) {
             });
     }, [class_id, token]);
 
-    useEffect(() => {
-   // alert(students);
-}, [students]);
-
     function updateStudents() {
 
         const data = {
-            students
+            // //
+            // students:[]
+            students: students
         };
         axios.patch(BaseUrl + "/api/classes/" + class_id + "/", data, {
             headers: {
@@ -55,9 +53,16 @@ function UpdateClassStudent(props) {
     }
 
     function studentsHandler(e) {
+
         const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+            // if (selectedOptions.includes("None")) {
+            //     setStudents([]);
+            // } else {
+            //     setStudents(selectedOptions);
+            // }
         setStudents(selectedOptions);
-    }
+
+        }
 
     return (
         <>
@@ -68,7 +73,7 @@ function UpdateClassStudent(props) {
                     <p>
                         Students:
                         <select name="students" multiple value={students} onChange={studentsHandler}>
-                            {/*<option value="">-- Select Students --</option>*/}
+                            {/*<option value={[]}>None</option>*/}
                             <ClassComponentStudent/>
                         </select>
                     </p>

@@ -30,6 +30,10 @@ function GradeBookLecturerClassDetail(props) {
             });
     }, [class_id, token]);
 
+    function notifyStudent() {
+        alert("Student notified successfully");
+    }
+
 
     return (
         <>
@@ -42,6 +46,7 @@ function GradeBookLecturerClassDetail(props) {
                             <p>{enrollment.studentFirstName} {enrollment.studentLastName} -- {enrollment.grade}</p>
                             <Link to={"/GradeBookLecturerUpdateGrade"} state={{enrollment_id: enrollment.id}}
                                   className={"btn btn-primary"}>Update</Link>
+                            <button className={"btn btn-danger"} onClick={notifyStudent}>Notify Student</button>
                         </div>
                     ))}
                 </div>
