@@ -40,7 +40,8 @@ function CreateClass() {
             number,
             semester,
             course,
-            lecturer
+            lecturer,
+            students: [],
         };
         axios.post(`${BaseUrl}/api/classes/`, data, {
             headers: {
