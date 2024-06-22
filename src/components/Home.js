@@ -3,6 +3,8 @@ import React from 'react';
 function Home(props) {
     return (
         <div>
+            <p>Super user: wangh</p>
+            <p>Super user password: 123456</p>
             <p>Admin Account: admin@gmail.com</p>
             <p>Admin Password: 123456</p>
             <p>Lecturer Account: lecturer@gmail.com</p>
