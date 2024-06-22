@@ -30,17 +30,16 @@ function GradeBookLecturerClassDetail(props) {
             });
     }, [class_id, token]);
 
-  function notifyStudent(token) {
-    axios.post(BaseUrl + "/email/", {
+  function notifyStudent() {
+    axios.post(BaseUrl + "/email/", null,{
         headers: {
-            'Authorization': 'Token ' + token
+            "Authorization": `Token ${token}`
         }
     })
     .then((response) => {
         alert("Student notified successfully");
     })
     .catch((error) => {
-        alert(token)
         alert("Student notification failed");
     });
 }
