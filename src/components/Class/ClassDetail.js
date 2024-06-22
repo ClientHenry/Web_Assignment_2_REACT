@@ -54,49 +54,29 @@ function ClassDetail() {
             {error ? (
                 <p>{error}</p>
             ) : (
-                // <div>
-                //     <p>Number: {cla.number}</p>
-                //     <p>Semester: <ClassSemesterName semester_id={cla.semester}/></p>
-                //     <p>Course: <ClassCourseName course_id={cla.course}/></p>
-                //     <p>Lecturer: <ClassLecturerName lecturer_id={cla.lecturer}/></p>
-                //     <p>Students:
-                //         {cla.students && cla.students.length > 0 ? (
-                //             cla.students.map(student => (
-                //                 <ClassStudentsName key={student} student_id={student}/>
-                //             ))
-                //         ) : 'N/A'}
-                //     </p>
-                //     <Link to={"/UpdateClass"} state={{class_id: class_id}} className={"btn btn-primary"}>Update</Link>
-                //     <Link to={"/UpdateClassLecturer"} state={{class_id: class_id}} className={"btn btn-primary"}>Update Lecturer</Link>
-                //     <Link to={"/UpdateClassStudent"} state={{class_id: class_id}} className={"btn btn-primary"}>Update Student</Link>
-                //
-                //     <button className={"btn btn-danger"} onClick={deleteClass}>Delete</button>
-                // </div>
-                <div className="card">
-                    <div className="card-body">
-                        <h5 className="card-title">Class Details</h5>
-                        <p><strong>Number:</strong> {cla.number}</p>
-                        <p><strong>Semester:</strong> <ClassSemesterName semester_id={cla.semester}/></p>
-                        <p><strong>Course:</strong> <ClassCourseName course_id={cla.course}/></p>
-                        <p><strong>Lecturer:</strong> <ClassLecturerName lecturer_id={cla.lecturer}/></p>
-                        <p><strong>Students:</strong> {cla.students && cla.students.length > 0 ? (
+                <div>
+                    <p>Number: {cla.number}</p>
+                    <p>Semester: <ClassSemesterName semester_id={cla.semester}/></p>
+                    <p>Course: <ClassCourseName course_id={cla.course}/></p>
+                    <p>Lecturer: <ClassLecturerName lecturer_id={cla.lecturer}/></p>
+                    <p>Students:
+                        {cla.students && cla.students.length > 0 ? (
                             cla.students.map(student => (
                                 <ClassStudentsName key={student} student_id={student}/>
                             ))
-                        ) : 'N/A'}</p>
+                        ) : 'N/A'}
+                    </p>
 
-                        <div className="btn-group" role="group">
-                            <Link to={"/UpdateClass"} state={{class_id: class_id}} className={"btn btn-primary mr-2"}>Update
-                                Class</Link>
-                            <Link to={"/UpdateClassLecturer"} state={{class_id: class_id}}
-                                  className={"btn btn-success mr-2"}>Update Lecturer</Link>
-                            <Link to={"/UpdateClassStudent"} state={{class_id: class_id}}
-                                  className={"btn btn-info mr-2"}>Update Student</Link>
-                            <button className={"btn btn-danger"} onClick={deleteClass}>Delete</button>
-                        </div>
+                    <div className="btn-group" role="group">
+                        <Link to={"/UpdateClass"} state={{class_id: class_id}} className={"btn btn-primary mr-2"}>Update
+                            Class</Link>
+                        <Link to={"/UpdateClassLecturer"} state={{class_id: class_id}}
+                              className={"btn btn-success mr-2"}>Update Lecturer</Link>
+                        <Link to={"/UpdateClassStudent"} state={{class_id: class_id}}
+                              className={"btn btn-info mr-2"}>Update Student</Link>
+                        <button className={"btn btn-danger"} onClick={deleteClass}>Delete</button>
                     </div>
                 </div>
-
 
             )}
         </>

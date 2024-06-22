@@ -47,7 +47,7 @@ function UpdateSemester() {
             }
         }).then((res) => {
             alert("Semester updated successfully");
-            navigate('/Semesters');
+                 navigate(-1);
         }).catch(error => {
             alert("Semester updated failed");
         })

@@ -56,7 +56,7 @@ function UpdateStudent() {
             }
         }).then((res) => {
             alert("Student updated successfully");
-            navigate('/Students');
+               navigate(-1);
         }).catch(error => {
             alert("Student updated failed");
         })

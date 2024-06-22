@@ -52,7 +52,7 @@ function UpdateClass(props) {
             }
         }).then((res) => {
             alert("Class updated successfully");
-            navigate('/Classes');
+                 navigate(-1);
         }).catch(error => {
             alert("Class updated failed");
         })

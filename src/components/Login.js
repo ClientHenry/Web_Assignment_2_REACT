@@ -62,22 +62,30 @@ function Login() {
     }
 
     return (
-        <div>
+
+        <div className="container">
             {token ?
-                <Fragment>
-                    <button className={"btn btn-warning"} onClick={logout}>Logout</button>
-                </Fragment>
+                <div className="logout-section">
+                    <button className="btn btn-warning" onClick={logout}>Logout</button>
+                </div>
                 :
-                <Fragment>
-                    <p>Username: <input className={"form-control"} name={"username"} onChange={usernameHandler}/></p>
-                    <p>Password: <input className={"form-control"} name={"password"} type={"password"}
-                                        onChange={passwordHandler}/></p>
+                <div className="login-section">
                     <p>
-                        <button className={"btn btn-primary"} onClick={login}>Login</button>
+                        <label htmlFor="username">Username:</label>
+                        <input className="form-control" id="username" name="username" onChange={usernameHandler}/>
                     </p>
-                </Fragment>
+                    <p>
+                        <label htmlFor="password">Password:</label>
+                        <input className="form-control" id="password" name="password" type="password"
+                               onChange={passwordHandler}/>
+                    </p>
+                    <p>
+                        <button className="btn btn-primary" onClick={login}>Login</button>
+                    </p>
+                </div>
             }
         </div>
+
     );
 }
 

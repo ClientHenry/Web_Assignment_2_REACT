@@ -45,7 +45,7 @@ function UpdateClassStudent(props) {
             }
         }).then((res) => {
             alert("Class updated successfully");
-            navigate('/Classes');
+                navigate(-1);
         }).catch(error => {
             alert("Class updated failed");
             alert(students);
@@ -54,8 +54,12 @@ function UpdateClassStudent(props) {
 
     function studentsHandler(e) {
 
-        const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-        setStudents(selectedOptions);
+         const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+        if (selectedOptions.includes("")) {
+            setStudents([]); // 如果选择了 "None" 选项，则将 students 更新为空数组
+        } else {
+            setStudents(selectedOptions);
+        }
 
         }
 
@@ -68,7 +72,7 @@ function UpdateClassStudent(props) {
                     <p>
                         Students:
                         <select name="students" multiple value={students} onChange={studentsHandler}>
-                            <option value={[]}>None</option>
+                            <option value="">None</option>
                             <ClassComponentStudent/>
                         </select>
                     </p>

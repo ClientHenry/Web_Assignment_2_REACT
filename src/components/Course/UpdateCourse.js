@@ -47,7 +47,7 @@ function UpdateCourse() {
             }
         }).then((res) => {
             alert("Course updated successfully");
-            navigate('/Courses');
+                navigate(-1);
         }).catch(error => {
             alert("Course updated failed");
         })
