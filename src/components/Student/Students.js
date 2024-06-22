@@ -48,8 +48,6 @@ function Students() {
                     DOB: new Date(row.DOB).toISOString().split('T')[0]
                 }));
 
-                console.log("Formatted data:", formattedData);
-
                 axios.post(BaseUrl + "/bulk_create_students/", {students: formattedData}, {
                     headers: {
                         'Authorization': `Token ${token}`
@@ -58,6 +56,7 @@ function Students() {
                     .then(response => {
                         console.log("Bulk upload successful:", response.data);
                         alert("Students uploaded successfully");
+                        window.location.reload();
                     })
                     .catch(error => {
                         console.error("Error in bulk upload:", error);
