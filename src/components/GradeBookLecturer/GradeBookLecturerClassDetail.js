@@ -30,22 +30,21 @@ function GradeBookLecturerClassDetail(props) {
             });
     }, [class_id, token]);
 
-  function notifyStudent() {
-    axios.post(BaseUrl + "/email/" + class_id, null,{
-        headers: {
-            "Authorization": `Token ${token}`
-        }
-    })
-    .then((response) => {
-        alert("Student notified successfully");
-        alert(enrollments[0].id);
-    })
-    .catch((error) => {
-        alert("Student notification failed");
-        alert(token)
-    });
-}
-
+    function notifyStudent() {
+        axios.post(BaseUrl + "/email/" + class_id, null, {
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then((response) => {
+                alert("Student notified successfully");
+                const { emails_sent_to } = response.data;
+                alert(`Student notified successfully. Emails sent to: ${emails_sent_to.join(', ')}`);
+            })
+            .catch((error) => {
+                alert("Student notification failed");
+            });
+    }
 
 
     return (
