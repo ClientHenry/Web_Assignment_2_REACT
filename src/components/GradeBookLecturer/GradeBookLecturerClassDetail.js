@@ -31,16 +31,18 @@ function GradeBookLecturerClassDetail(props) {
     }, [class_id, token]);
 
   function notifyStudent() {
-    axios.post(BaseUrl + "/email/", null,{
+    axios.post(BaseUrl + "/email/" + class_id, null,{
         headers: {
             "Authorization": `Token ${token}`
         }
     })
     .then((response) => {
         alert("Student notified successfully");
+        alert(enrollments[0].id);
     })
     .catch((error) => {
         alert("Student notification failed");
+        alert(token)
     });
 }
 
