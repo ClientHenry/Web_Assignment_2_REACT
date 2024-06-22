@@ -39,7 +39,7 @@ function GradeBookLecturerClassDetail(props) {
             .then((response) => {
                 alert("Student notified successfully");
                 const { emails_sent_to } = response.data;
-                alert(`Student notified successfully. Emails sent to: ${emails_sent_to.join(', ')}`);
+                alert(`Emails sent to: ${emails_sent_to.join(', ')}`);
             })
             .catch((error) => {
                 alert("Student notification failed");
