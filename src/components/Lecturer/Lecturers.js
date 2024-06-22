@@ -35,6 +35,7 @@ function Lecturers() {
             ) : (
                 <div>
                     <Link to={"/CreateLecturer"} className={"btn btn-primary"}>Create a Lecturer</Link>
+                    <p></p>
                     {lecturers.map(lecturer =>
                         <p>
                             <Link to={"/LecturerDetail"} state={{lecturer_id: lecturer.id}} key={lecturer.id}>

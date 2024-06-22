@@ -29,7 +29,6 @@ import GradeBookLecturerClassDetail from "./components/GradeBookLecturer/GradeBo
 import GradeBookLecturerUpdateGrade from "./components/GradeBookLecturer/GradeBookLecturerUpdateGrade";
 import UpdateClassLecturer from "./components/Class/UpdateClassLecturer";
 import UpdateClassStudent from "./components/Class/UpdateClassStudent";
-import UploadFile from "./components/UploadFile";
 
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
                 <Route path={"/UpdateSemester"} element={<UpdateSemester/>}/>
                 <Route path="/Students" element={<Students/>}/>
                 <Route path={"/CreateStudent"} element={<CreateStudent/>}/>
-                <Route path={"/UploadFile"} element={<UploadFile/>}/>
                 <Route path={"/StudentDetail"} element={<StudentDetail/>}/>
                 <Route path={"/UpdateStudent"} element={<UpdateStudent/>}/>
                 <Route path="/Lecturers" element={<Lecturers/>}/>

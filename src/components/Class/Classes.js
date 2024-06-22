@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {BaseUrl} from "../constants";
 import {Link} from "react-router-dom";
-import ClassCourseName from "../ClassCourseName";
+import ClassCourseName from "../MiddleComponents/ClassCourseName";
 
 function Classes() {
 
@@ -36,11 +36,14 @@ function Classes() {
             ) : (
                 <div>
                     <Link to={"/CreateClass"} className={"btn btn-primary"}>Create a Class</Link>
+                    <p></p>
                     {classes.map(cla =>
                         <p><Link to={"/ClassDetail"} state={{class_id: cla.id}}
                                  key={cla.id}>{cla.number} - <ClassCourseName course_id={cla.course}/></Link></p>
                     )}
                 </div>
+
+
             )}
         </>
     );

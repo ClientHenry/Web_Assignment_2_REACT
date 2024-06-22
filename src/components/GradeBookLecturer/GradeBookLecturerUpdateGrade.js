@@ -61,14 +61,15 @@ function GradeBookLecturerUpdateGrade(props) {
             ) : (
                 <div>
                     <p>
-                        {enrollment.studentFirstName} {enrollment.studentLastName}
+                        <strong>{enrollment.studentFirstName} {enrollment.studentLastName}</strong>
                     </p>
                     <p>
                         Grade: <input type={"number"} id={"grade"} value={grade} onChange={gradeHandler}/>
                     </p>
 
-                    <button onClick={updateGrade}>Submit</button>
+                    <button className="btn btn-primary" onClick={updateGrade}>Submit</button>
                 </div>
+
             )}
         </>
     );

@@ -33,11 +33,22 @@ function GradeBookStudent(props) {
                 <p>{error}</p>
             ) : (
                 <div>
-                    {enrollments.map(enrollment =>
-
-                        <p key={enrollment.id}>{enrollment.classNumber} - {enrollment.courseName} - {enrollment.grade}</p>
-                    )}
-
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>Class ID/Course Name</th>
+                            <th>Grade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {enrollments.map(enrollment => (
+                            <tr key={enrollment.id}>
+                                <td>{enrollment.classNumber} / {enrollment.courseName}</td>
+                                <td>{enrollment.grade}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </>

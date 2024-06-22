@@ -36,11 +36,28 @@ function GradeBookLecturer(props) {
                 <p>{error}</p>
             ) : (
                 <div>
-                    {classes.map(cla =>
-                        <p><Link to={"/GradeBookLecturerClassDetail"} state={{class_id: cla.id}}
-                                 key={cla.id}>{cla.number} - {cla.courseName}</Link></p>
-                    )}
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>Class ID</th>
+                            <th>Class Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {classes.map(cla => (
+                            <tr key={cla.id}>
+                                <td>
+                                    <Link to={"/GradeBookLecturerClassDetail"} state={{class_id: cla.id}}>
+                                        {cla.number}
+                                    </Link>
+                                </td>
+                                <td>{cla.courseName}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
+
             )}
         </>
     );

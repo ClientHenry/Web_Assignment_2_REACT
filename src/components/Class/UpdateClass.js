@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BaseUrl} from "../constants";
-import ClassComponentSemester from "../ClassComponentSemester";
-import ClassComponentCourse from "../ClassComponentCourse";
+import ClassComponentSemester from "../MiddleComponents/ClassComponentSemester";
+import ClassComponentCourse from "../MiddleComponents/ClassComponentCourse";
 
 
 function UpdateClass(props) {

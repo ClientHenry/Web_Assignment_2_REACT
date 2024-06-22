@@ -38,7 +38,7 @@ function GradeBookLecturerClassDetail(props) {
         })
             .then((response) => {
                 alert("Student notified successfully");
-                const { emails_sent_to } = response.data;
+                const {emails_sent_to} = response.data;
                 alert(`Emails sent to: ${emails_sent_to.join(', ')}`);
             })
             .catch((error) => {
@@ -53,13 +53,28 @@ function GradeBookLecturerClassDetail(props) {
                 <p>{error}</p>
             ) : (
                 <div>
-                    {enrollments.map(enrollment => (
-                        <div key={enrollment.id}>
-                            <p>{enrollment.studentFirstName} {enrollment.studentLastName} -- {enrollment.grade}</p>
-                            <Link to={"/GradeBookLecturerUpdateGrade"} state={{enrollment_id: enrollment.id}}
-                                  className={"btn btn-primary"}>Update</Link>
-                        </div>
-                    ))}
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Grade</th>
+                            <th>Update</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {enrollments.map(enrollment => (
+                            <tr key={enrollment.id}>
+                                <td>{enrollment.studentFirstName} {enrollment.studentLastName}</td>
+                                <td>{enrollment.grade}</td>
+                                <td>
+                                    <Link to={"/GradeBookLecturerUpdateGrade"} state={{enrollment_id: enrollment.id}}>
+                                        Update
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                     <button className={"btn btn-danger"} onClick={notifyStudent}>Notify Student</button>
                 </div>
             )}

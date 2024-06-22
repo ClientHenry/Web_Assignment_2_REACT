@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {BaseUrl} from "../constants";
-import ClassComponentStudent from "../ClassComponentStudent";
+import ClassComponentStudent from "../MiddleComponents/ClassComponentStudent";
 
 function UpdateClassStudent(props) {
 
@@ -36,8 +36,7 @@ function UpdateClassStudent(props) {
     function updateStudents() {
 
         const data = {
-            // //
-            // students:[]
+
             students: students
         };
         axios.patch(BaseUrl + "/api/classes/" + class_id + "/", data, {
@@ -49,17 +48,13 @@ function UpdateClassStudent(props) {
             navigate('/Classes');
         }).catch(error => {
             alert("Class updated failed");
+            alert(students);
         })
     }
 
     function studentsHandler(e) {
 
         const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-            // if (selectedOptions.includes("None")) {
-            //     setStudents([]);
-            // } else {
-            //     setStudents(selectedOptions);
-            // }
         setStudents(selectedOptions);
 
         }
@@ -73,7 +68,7 @@ function UpdateClassStudent(props) {
                     <p>
                         Students:
                         <select name="students" multiple value={students} onChange={studentsHandler}>
-                            {/*<option value={[]}>None</option>*/}
+                            <option value={[]}>None</option>
                             <ClassComponentStudent/>
                         </select>
                     </p>

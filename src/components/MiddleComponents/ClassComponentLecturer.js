@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
-function ClassComponentCourse() {
+function ClassComponentLecturer() {
 
-    const [courses, setCourses] = useState([]);
+    const [lecturers, setLecturers] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
 
     useEffect(() => {
-        axios.get(`${BaseUrl}/api/courses`, {
+        axios.get(`${BaseUrl}/api/lecturers`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-                setCourses(response.data);
+                setLecturers(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -23,13 +23,13 @@ function ClassComponentCourse() {
 
     return (
         <>
-            {courses.map((course) => (
-                <option key={course.id} value={course.id}>
-                    {course.name}
+            {lecturers.map((lecturer) => (
+                <option key={lecturer.id} value={lecturer.id}>
+                    {lecturer.firstname} {lecturer.lastname}
                 </option>
             ))}
         </>
     );
 }
 
-export default ClassComponentCourse;
+export default ClassComponentLecturer;

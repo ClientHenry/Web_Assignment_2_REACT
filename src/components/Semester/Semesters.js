@@ -36,6 +36,7 @@ function Semesters() {
             ) : (
                 <div>
                     <Link to={"/CreateSemester"} className={"btn btn-primary"}>Create a Semester</Link>
+                    <p></p>
                     {semesters.map(semester =>
                         <p key={semester.id}>
                             <Link to={"/SemesterDetail"} state={{semester_id: semester.id}}>

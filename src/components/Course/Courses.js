@@ -35,6 +35,7 @@ function Courses() {
             ) : (
                 <div>
                     <Link to={"/CreateCourse"} className={"btn btn-primary"}>Create a Course</Link>
+                    <p></p>
                     {courses.map(course =>
                         <p><Link to={"/CourseDetail"} state={{course_id: course.id}}
                                  key={course.id}>{course.code} - {course.name}</Link></p>

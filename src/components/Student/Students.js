@@ -36,6 +36,7 @@ function Students() {
                 <div>
                     <Link to={"/CreateStudent"} className={"btn btn-primary"}>Create a Student</Link>
                       <Link to={"/UploadFile"} className={"btn btn-primary"}>Upload File</Link>
+                    <p></p>
                     {students.map(student =>
                         <p>
                             <Link to={"/StudentDetail"} state={{student_id: student.id}} key={student.id}>

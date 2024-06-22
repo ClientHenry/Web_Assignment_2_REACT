@@ -3,9 +3,9 @@ import React, {useState} from 'react';
 import axios from "axios";
 import {BaseUrl} from "../constants";
 import {useNavigate} from "react-router-dom";
-import ClassComponentSemester from "../ClassComponentSemester";
-import ClassComponentCourse from "../ClassComponentCourse";
-import ClassComponentLecturer from "../ClassComponentLecturer";
+import ClassComponentSemester from "../MiddleComponents/ClassComponentSemester";
+import ClassComponentCourse from "../MiddleComponents/ClassComponentCourse";
+import ClassComponentLecturer from "../MiddleComponents/ClassComponentLecturer";
 
 function CreateClass() {
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ function CreateClass() {
     const [semester, setSemester] = useState('');
     const [course, setCourse] = useState('');
     const [lecturer, setLecturer] = useState('');
-    // const [students] = useState([]);
+    const [students] = useState([]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -42,7 +42,7 @@ function CreateClass() {
             semester,
             course,
             lecturer,
-            // students
+            students
         };
         axios.post(`${BaseUrl}/api/classes/`, data, {
             headers: {

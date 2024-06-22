@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 import axios from "axios";
 
 function ClassLecturerName(props) {
