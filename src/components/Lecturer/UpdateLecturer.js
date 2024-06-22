@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
-function UpdateStudent() {
+function UpdateLecturer() {
 
     const location = useLocation();
-    const student_id = location.state.student_id;
-    // const [, setStudent] = useState({});
-    const [studentID, setStudentID] = useState("");
+    const lecturer_id = location.state.lecturer_id;
+    const [, setLecturer] = useState({});
+    const [staffID, setStaffID] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
@@ -23,14 +23,14 @@ function UpdateStudent() {
             setError('Unauthorized Access');
             return;
         }
-        axios.get(BaseUrl + "/api/students/" + student_id, {
+        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id, {
             headers: {
                 'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-                // setStudent(response.data);
-                setStudentID(response.data.studentID);
+                setLecturer(response.data);
+                setStaffID(response.data.staffID);
                 setFirstname(response.data.firstname);
                 setLastname(response.data.lastname);
                 setEmail(response.data.email);
@@ -39,31 +39,31 @@ function UpdateStudent() {
             .catch((error) => {
                 setError('Unauthorized Access');
             });
-    }, [student_id, token]);
+    }, [lecturer_id, token]);
 
-    function updateStudent() {
+    function updateLecturer() {
 
         let data = {
-            studentID: studentID,
+            staffID: staffID,
             firstname: firstname,
             lastname: lastname,
             email: email,
             DOB: DOB,
         }
-        axios.patch(BaseUrl + "/api/students/" + student_id + "/", data, {
+        axios.patch(BaseUrl + "/api/lecturers/" + lecturer_id + "/", data, {
             headers: {
                 "Authorization": "Token " + token
             }
         }).then((res) => {
-            alert("Student updated successfully");
-            navigate('/Students');
+            alert("Lecturer updated successfully");
+            navigate('/Lecturers');
         }).catch(error => {
-            alert("Student updated failed");
+            alert("Lecturer updated failed");
         })
     }
 
-    function studentIDHandler(e) {
-        setStudentID(e.target.value);
+    function staffIDHandler(e) {
+        setStaffID(e.target.value);
     }
 
     function firstnameHandler(e) {
@@ -89,8 +89,8 @@ function UpdateStudent() {
             ) : (
                 <div>
                     <p>
-                        Student ID: <input type={"number"} id={"studentID"} value={studentID}
-                                           onChange={studentIDHandler}/>
+                        Staff ID: <input type={"number"} id={"staffID"} value={staffID}
+                                         onChange={staffIDHandler}/>
                     </p>
                     <p>
                         First Name: <input type={"text"} id={"firstname"} value={firstname}
@@ -106,7 +106,7 @@ function UpdateStudent() {
                         DOB: <input type={"date"} id={"DOB"} value={DOB} onChange={DOBHandler}/>
                     </p>
                     <p>
-                        <button onClick={updateStudent}>Submit</button>
+                        <button onClick={updateLecturer}>Submit</button>
                     </p>
                 </div>
             )}
@@ -114,4 +114,4 @@ function UpdateStudent() {
     );
 }
 
-export default UpdateStudent;
+export default UpdateLecturer;

@@ -1,12 +1,12 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
-function CourseDetail() {
+function LecturerDetail() {
     const location = useLocation();
-    const course_id = location.state.course_id;
-    const [course, setCourse] = useState({});
+    const lecturer_id = location.state.lecturer_id;
+    const [lecturer, setLecturer] = useState({});
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
     const [error, setError] = useState(null);
@@ -17,31 +17,31 @@ function CourseDetail() {
             setError('Unauthorized Access');
             return;
         }
-        axios.get(BaseUrl + "/api/courses/" + course_id, {
+        axios.get(BaseUrl + "/api/lecturers/" + lecturer_id, {
             headers: {
                 'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-                setCourse(response.data);
+                setLecturer(response.data);
             })
             .catch((error) => {
                 setError('Unauthorized Access');
             });
-    }, [course_id, token]);
+    }, [lecturer_id, token]);
 
-    function deleteCourse(event) {
+    function deleteLecturer(event) {
 
-        if (window.confirm("Are you sure you want to delete this course?"))
-            axios.delete(BaseUrl + "/api/courses/" + course_id, {
+        if (window.confirm("Are you sure you want to delete this lecturer?"))
+            axios.delete(BaseUrl + "/api/lecturers/" + lecturer_id, {
                 headers: {
                     "Authorization": "Token " + token
                 }
             }).then((res) => {
-                alert("Course deleted successfully");
-                navigate('/Courses');
+                alert("Lecturer deleted successfully");
+                navigate('/Lecturers');
             }).catch(error => {
-                alert("Course deleted failed");
+                alert("Lecturer deleted failed");
             });
     }
 
@@ -52,15 +52,18 @@ function CourseDetail() {
                 <p>{error}</p>
             ) : (
                 <div>
-                    <p>Code: {course.code}</p>
-                    <p>Name: {course.name}</p>
-                    <Link to={"/UpdateCourse"} state={{course_id: course_id}}
+                    <p>Staff ID: {lecturer.staffID}</p>
+                    <p>First Name: {lecturer.firstname}</p>
+                    <p>Last Name: {lecturer.lastname}</p>
+                    <p>Email: {lecturer.email}</p>
+                    <p>DOB: {lecturer.DOB}</p>
+                    <Link to={"/UpdateLecturer"} state={{lecturer_id: lecturer_id}}
                           className={"btn btn-primary"}>Update</Link>
-                    <button className={"btn btn-danger"} onClick={deleteCourse}>Delete</button>
+                    <button className={"btn btn-danger"} onClick={deleteLecturer}>Delete</button>
                 </div>
             )}
         </>
     );
 }
 
-export default CourseDetail;
+export default LecturerDetail;

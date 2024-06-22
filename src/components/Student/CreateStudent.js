@@ -1,38 +1,38 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 import {useNavigate} from "react-router-dom";
 
-function CreateLecturer() {
+function CreateStudent() {
 
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
 
-    function createLecturer() {
+    function createStudent() {
 
         let data = {
-            "staffID": document.getElementById("staffID").value,
+            "studentID": document.getElementById("studentID").value,
             "firstname": document.getElementById("firstname").value,
             "lastname": document.getElementById("lastname").value,
             "email": document.getElementById("email").value,
             "DOB": document.getElementById("DOB").value
         }
-        axios.post(BaseUrl + "/api/lecturers/", data, {
+        axios.post(BaseUrl + "/api/students/", data, {
             headers: {
                 "Authorization": "Token " + token
             }
         }).then((res) => {
-            alert("Lecturer created successfully");
-            navigate('/Lecturers');
+            alert("Student created successfully");
+            navigate('/Students');
         }).catch(error => {
-            alert("Lecturer created failed");
+            alert("Student created failed");
         })
     }
 
     return (
         <div>
             <p>
-                Staff ID: <input type={"number"} id={"staffID"}/>
+                Student ID: <input type={"number"} id={"studentID"}/>
             </p>
             <p>
                 First Name: <input type={"text"} id={"firstname"}/>
@@ -47,10 +47,10 @@ function CreateLecturer() {
                 DOB: <input type={"date"} id={"DOB"}/>
             </p>
             <p>
-                <button onClick={createLecturer}>Submit</button>
+                <button onClick={createStudent}>Submit</button>
             </p>
         </div>
     );
 }
 
-export default CreateLecturer;
+export default CreateStudent;

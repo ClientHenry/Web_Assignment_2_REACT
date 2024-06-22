@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
 function GradeBookLecturerUpdateGrade(props) {
     const navigate = useNavigate();

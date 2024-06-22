@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
 function GradeBookLecturerClassDetail(props) {
 
@@ -30,9 +30,21 @@ function GradeBookLecturerClassDetail(props) {
             });
     }, [class_id, token]);
 
-    function notifyStudent() {
+  function notifyStudent(token) {
+    axios.post(BaseUrl + "/email/", {
+        headers: {
+            'Authorization': 'Token ' + token
+        }
+    })
+    .then((response) => {
         alert("Student notified successfully");
-    }
+    })
+    .catch((error) => {
+        alert(token)
+        alert("Student notification failed");
+    });
+}
+
 
 
     return (
@@ -46,9 +58,9 @@ function GradeBookLecturerClassDetail(props) {
                             <p>{enrollment.studentFirstName} {enrollment.studentLastName} -- {enrollment.grade}</p>
                             <Link to={"/GradeBookLecturerUpdateGrade"} state={{enrollment_id: enrollment.id}}
                                   className={"btn btn-primary"}>Update</Link>
-                            <button className={"btn btn-danger"} onClick={notifyStudent}>Notify Student</button>
                         </div>
                     ))}
+                    <button className={"btn btn-danger"} onClick={notifyStudent}>Notify Student</button>
                 </div>
             )}
         </>

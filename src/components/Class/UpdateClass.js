@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
-import ClassComponentSemester from "./ClassComponentSemester";
-import ClassComponentCourse from "./ClassComponentCourse";
+import {BaseUrl} from "../constants";
+import ClassComponentSemester from "../ClassComponentSemester";
+import ClassComponentCourse from "../ClassComponentCourse";
 
 
 function UpdateClass(props) {

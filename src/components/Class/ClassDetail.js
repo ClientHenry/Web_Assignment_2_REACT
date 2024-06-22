@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
-import ClassSemesterName from "./ClassSemesterName";
-import ClassLecturerName from "./ClassLecturerName";
-import ClassCourseName from "./ClassCourseName";
-import ClassStudentsName from "./ClassStudentsName";
+import {BaseUrl} from "../constants";
+import ClassSemesterName from "../ClassSemesterName";
+import ClassLecturerName from "../ClassLecturerName";
+import ClassCourseName from "../ClassCourseName";
+import ClassStudentsName from "../ClassStudentsName";
 
 function ClassDetail() {
     const location = useLocation();

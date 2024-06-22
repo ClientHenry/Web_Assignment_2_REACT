@@ -1,11 +1,11 @@
 // CreateClass.jsx
 import React, {useState} from 'react';
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 import {useNavigate} from "react-router-dom";
-import ClassComponentSemester from "./ClassComponentSemester";
-import ClassComponentCourse from "./ClassComponentCourse";
-import ClassComponentLecturer from "./ClassComponentLecturer";
+import ClassComponentSemester from "../ClassComponentSemester";
+import ClassComponentCourse from "../ClassComponentCourse";
+import ClassComponentLecturer from "../ClassComponentLecturer";
 
 function CreateClass() {
     const navigate = useNavigate();

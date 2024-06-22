@@ -1,38 +1,38 @@
 import React, {useState} from 'react';
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 import {useNavigate} from "react-router-dom";
 
-function CreateStudent() {
+function CreateLecturer() {
 
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
 
-    function createStudent() {
+    function createLecturer() {
 
         let data = {
-            "studentID": document.getElementById("studentID").value,
+            "staffID": document.getElementById("staffID").value,
             "firstname": document.getElementById("firstname").value,
             "lastname": document.getElementById("lastname").value,
             "email": document.getElementById("email").value,
             "DOB": document.getElementById("DOB").value
         }
-        axios.post(BaseUrl + "/api/students/", data, {
+        axios.post(BaseUrl + "/api/lecturers/", data, {
             headers: {
                 "Authorization": "Token " + token
             }
         }).then((res) => {
-            alert("Student created successfully");
-            navigate('/Students');
+            alert("Lecturer created successfully");
+            navigate('/Lecturers');
         }).catch(error => {
-            alert("Student created failed");
+            alert("Lecturer created failed");
         })
     }
 
     return (
         <div>
             <p>
-                Student ID: <input type={"number"} id={"studentID"}/>
+                Staff ID: <input type={"number"} id={"staffID"}/>
             </p>
             <p>
                 First Name: <input type={"text"} id={"firstname"}/>
@@ -47,10 +47,10 @@ function CreateStudent() {
                 DOB: <input type={"date"} id={"DOB"}/>
             </p>
             <p>
-                <button onClick={createStudent}>Submit</button>
+                <button onClick={createLecturer}>Submit</button>
             </p>
         </div>
     );
 }
 
-export default CreateStudent;
+export default CreateLecturer;

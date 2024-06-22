@@ -1,13 +1,12 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 
-function SemesterDetail() {
-
+function CourseDetail() {
     const location = useLocation();
-    const semester_id = location.state.semester_id;
-    const [semester, setSemester] = useState({});
+    const course_id = location.state.course_id;
+    const [course, setCourse] = useState({});
     const navigate = useNavigate();
     const [token] = useState(localStorage.getItem("token"));
     const [error, setError] = useState(null);
@@ -18,35 +17,34 @@ function SemesterDetail() {
             setError('Unauthorized Access');
             return;
         }
-
-        axios.get(BaseUrl + "/api/semesters/" + semester_id, {
+        axios.get(BaseUrl + "/api/courses/" + course_id, {
             headers: {
                 'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-                setSemester(response.data);
+                setCourse(response.data);
             })
             .catch((error) => {
                 setError('Unauthorized Access');
             });
-    }, [token, semester_id]);
+    }, [course_id, token]);
 
-    function deleteSemester(event) {
+    function deleteCourse(event) {
 
-        if (window.confirm("Are you sure you want to delete this semester?"))
-
-            axios.delete(BaseUrl + "/api/semesters/" + semester_id, {
+        if (window.confirm("Are you sure you want to delete this course?"))
+            axios.delete(BaseUrl + "/api/courses/" + course_id, {
                 headers: {
                     "Authorization": "Token " + token
                 }
             }).then((res) => {
-                alert("Semester deleted successfully");
-                navigate('/Semesters');
+                alert("Course deleted successfully");
+                navigate('/Courses');
             }).catch(error => {
-                alert("Semester deleted failed");
+                alert("Course deleted failed");
             });
     }
+
 
     return (
         <>
@@ -54,15 +52,15 @@ function SemesterDetail() {
                 <p>{error}</p>
             ) : (
                 <div>
-                    <p>Year: {semester.year}</p>
-                    <p>Semester: {semester.semester}</p>
-                    <Link to={"/UpdateSemester"} state={{semester_id: semester_id}}
+                    <p>Code: {course.code}</p>
+                    <p>Name: {course.name}</p>
+                    <Link to={"/UpdateCourse"} state={{course_id: course_id}}
                           className={"btn btn-primary"}>Update</Link>
-                    <button className={"btn btn-danger"} onClick={deleteSemester}>Delete</button>
+                    <button className={"btn btn-danger"} onClick={deleteCourse}>Delete</button>
                 </div>
             )}
         </>
     );
 }
 
-export default SemesterDetail;
+export default CourseDetail;

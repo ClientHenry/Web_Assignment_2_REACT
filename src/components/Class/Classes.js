@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {BaseUrl} from "./constants";
+import {BaseUrl} from "../constants";
 import {Link} from "react-router-dom";
+import ClassCourseName from "../ClassCourseName";
 
-function GradeBookLecturer(props) {
+function Classes() {
 
     const [classes, setClasses] = useState([]);
     const [token] = useState(localStorage.getItem("token"));
@@ -15,15 +16,13 @@ function GradeBookLecturer(props) {
             setError('Unauthorized Access');
             return;
         }
-        axios.get(BaseUrl + "/api/grade/lecturers", {
+        axios.get(BaseUrl + "/api/classes", {
             headers: {
-                'Authorization': 'Token ' + token
+                'Authorization': `Token ${token}`
             }
         })
             .then((response) => {
-
                 setClasses(response.data);
-
             })
             .catch((error) => {
                 setError('Unauthorized Access');
@@ -36,9 +35,10 @@ function GradeBookLecturer(props) {
                 <p>{error}</p>
             ) : (
                 <div>
+                    <Link to={"/CreateClass"} className={"btn btn-primary"}>Create a Class</Link>
                     {classes.map(cla =>
-                        <p><Link to={"/GradeBookLecturerClassDetail"} state={{class_id: cla.id}}
-                                 key={cla.id}>{cla.number} - {cla.courseName}</Link></p>
+                        <p><Link to={"/ClassDetail"} state={{class_id: cla.id}}
+                                 key={cla.id}>{cla.number} - <ClassCourseName course_id={cla.course}/></Link></p>
                     )}
                 </div>
             )}
@@ -46,4 +46,4 @@ function GradeBookLecturer(props) {
     );
 }
 
-export default GradeBookLecturer;
+export default Classes;

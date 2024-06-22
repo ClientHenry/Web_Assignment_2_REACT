@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {BaseUrl} from "./constants";
-import ClassComponentLecturer from "./ClassComponentLecturer";
+import {BaseUrl} from "../constants";
+import ClassComponentLecturer from "../ClassComponentLecturer";
 
 function UpdateClassLecturer(props) {
 
