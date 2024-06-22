@@ -7,7 +7,7 @@ function Home(props) {
             <p>Super user password: 123456</p>
             <p>Admin Account: admin</p>
             <p>Admin Password: a1d2m3i4n5</p>
-            <p>Lecturer Account: tony@gmail.com</p>
+            <p>Lecturer Account: tariq@gmail.com</p>
             <p>User Password: 2000-01-01</p>
             <p>Student Account: henry@gmail.com</p>
             <p>Student Password: 2000-01-01</p>
