@@ -45,7 +45,6 @@ function LecturerDetail() {
             });
     }
 
-
     return (
         <>
             {error ? (

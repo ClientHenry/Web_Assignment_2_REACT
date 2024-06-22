@@ -57,7 +57,6 @@ function GradeBookLecturer(props) {
                         </tbody>
                     </table>
                 </div>
-
             )}
         </>
     );

@@ -42,8 +42,6 @@ function Classes() {
                                  key={cla.id}>{cla.number} - <ClassCourseName course_id={cla.course}/></Link></p>
                     )}
                 </div>
-
-
             )}
         </>
     );

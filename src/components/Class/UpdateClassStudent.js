@@ -25,8 +25,8 @@ function UpdateClassStudent(props) {
             }
         })
             .then((response) => {
-                 // setStudents(response.data.students.map(student => student.id));
-                  setStudents(response.data.students);
+                // setStudents(response.data.students.map(student => student.id));
+                setStudents(response.data.students);
             })
             .catch((error) => {
                 setError('Unauthorized Access');
@@ -45,7 +45,7 @@ function UpdateClassStudent(props) {
             }
         }).then((res) => {
             alert("Class updated successfully");
-                navigate(-1);
+            navigate(-1);
         }).catch(error => {
             alert("Class updated failed");
             alert(students);
@@ -54,14 +54,13 @@ function UpdateClassStudent(props) {
 
     function studentsHandler(e) {
 
-         const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+        const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
         if (selectedOptions.includes("")) {
             setStudents([]); // 如果选择了 "None" 选项，则将 students 更新为空数组
         } else {
             setStudents(selectedOptions);
         }
-
-        }
+    }
 
     return (
         <>

@@ -56,7 +56,7 @@ function UpdateLecturer() {
             }
         }).then((res) => {
             alert("Lecturer updated successfully");
-                  navigate(-1);
+            navigate(-1);
         }).catch(error => {
             alert("Lecturer updated failed");
         })

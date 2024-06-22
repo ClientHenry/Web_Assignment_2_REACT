@@ -22,7 +22,6 @@ function ClassCourseName(props) {
     }, [props.course_id, token]);
 
     return (
-
         <Fragment>
             {courseName}
         </Fragment>);

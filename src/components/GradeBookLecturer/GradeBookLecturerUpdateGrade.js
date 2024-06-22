@@ -69,7 +69,6 @@ function GradeBookLecturerUpdateGrade(props) {
 
                     <button className="btn btn-primary" onClick={updateGrade}>Submit</button>
                 </div>
-
             )}
         </>
     );

@@ -24,7 +24,6 @@ function ClassStudentsName(props) {
     }, [props.student_id, token]);
 
     return (
-
         <Fragment>
             {firstName} {lastName},
         </Fragment>

@@ -28,7 +28,6 @@ function ClassSemesterName(props) {
             {semesterYear} {semesterSemester}
         </Fragment>
     );
-
 }
 
 export default ClassSemesterName;

@@ -43,7 +43,7 @@ function UpdateClassLecturer(props) {
             }
         }).then((res) => {
             alert("Class updated successfully");
-                navigate(-1);
+            navigate(-1);
         }).catch(error => {
             alert("Class updated failed");
         })
