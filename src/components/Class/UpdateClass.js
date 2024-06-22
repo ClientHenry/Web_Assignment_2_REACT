@@ -15,6 +15,8 @@ function UpdateClass(props) {
     const [number, setNumber] = useState('');
     const [semester, setSemester] = useState('');
     const [course, setCourse] = useState('');
+    const [lecturer, setLecturer] = useState('');
+    const [students, setStudents] = useState([]);
     const [error, setError] = useState(null);
 
 
@@ -33,6 +35,8 @@ function UpdateClass(props) {
                 setNumber(response.data.number);
                 setCourse(response.data.course);
                 setSemester(response.data.semester);
+                setLecturer(response.data.lecturer);
+                setStudents(response.data.students);
             })
             .catch((error) => {
                 setError('Unauthorized Access');
@@ -45,6 +49,8 @@ function UpdateClass(props) {
             number,
             semester,
             course,
+            lecturer,
+            students,
         };
         axios.patch(BaseUrl + "/api/classes/" + class_id + "/", data, {
             headers: {
@@ -52,7 +58,7 @@ function UpdateClass(props) {
             }
         }).then((res) => {
             alert("Class updated successfully");
-                 navigate(-1);
+            navigate(-1);
         }).catch(error => {
             alert("Class updated failed");
         })
